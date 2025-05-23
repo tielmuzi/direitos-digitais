@@ -1,0 +1,22 @@
+ion-menu {
+  --ion-background-color: var(--ion-color-primary);
+  --ion-text-color: var(--ion-color-primary-contrast);
+
+  ion-toolbar {
+    --background: var(--ion-color-primary);
+  }
+
+  ion-list {
+    background: transparent;
+  }
+
+  ion-item {
+    --background: transparent;
+    --color: var(--ion-color-primary-contrast);
+
+    &.selected {
+      --background: rgba(var(--ion-color-primary-contrast-rgb), 0.1);
+      font-weight: bold;
+    }
+  }
+}

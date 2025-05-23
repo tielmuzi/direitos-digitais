@@ -1,0 +1,230 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Questionário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="enviarQuestionario()">
+    <!-- Dados Demográficos -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Dados Demográficos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Faixa etária</ion-label>
+            <ion-select [(ngModel)]="formData.faixaEtaria" name="faixaEtaria" required>
+              <ion-select-option value="Menos de 18 anos">Menos de 18 anos</ion-select-option>
+              <ion-select-option value="18-25 anos">18-25 anos</ion-select-option>
+              <ion-select-option value="26-35 anos">26-35 anos</ion-select-option>
+              <ion-select-option value="36-45 anos">36-45 anos</ion-select-option>
+              <ion-select-option value="46-60 anos">46-60 anos</ion-select-option>
+              <ion-select-option value="Mais de 60 anos">Mais de 60 anos</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Nível de escolaridade</ion-label>
+            <ion-select [(ngModel)]="formData.escolaridade" name="escolaridade" required>
+              <ion-select-option value="Ensino Fundamental">Ensino Fundamental</ion-select-option>
+              <ion-select-option value="Ensino Médio">Ensino Médio</ion-select-option>
+              <ion-select-option value="Ensino Superior incompleto">Ensino Superior incompleto</ion-select-option>
+              <ion-select-option value="Ensino Superior completo">Ensino Superior completo</ion-select-option>
+              <ion-select-option value="Pós-graduação">Pós-graduação</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Gênero</ion-label>
+            <ion-select [(ngModel)]="formData.genero" name="genero" required>
+              <ion-select-option value="Masculino">Masculino</ion-select-option>
+              <ion-select-option value="Feminino">Feminino</ion-select-option>
+              <ion-select-option value="Não especifico">Não especifico</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Conhecimento sobre Direitos Humanos -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Conhecimento sobre Direitos Humanos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Como você classificaria seu conhecimento sobre direitos humanos?</ion-label>
+            <ion-range
+              [(ngModel)]="formData.conhecimentoDireitosHumanos"
+              name="conhecimentoDireitosHumanos"
+              min="1"
+              max="5"
+              snaps
+              ticks
+              required>
+              <ion-label slot="start">1 (Muito baixo)</ion-label>
+              <ion-label slot="end">5 (Muito alto)</ion-label>
+            </ion-range>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Você conhece a Declaração Universal dos Direitos Humanos?</ion-label>
+            <ion-select [(ngModel)]="formData.conheceDeclaracao" name="conheceDeclaracao" required>
+              <ion-select-option value="Sim, conheço bem">Sim, conheço bem</ion-select-option>
+              <ion-select-option value="Sim, mas superficialmente">Sim, mas superficialmente</ion-select-option>
+              <ion-select-option value="Já ouvi falar, mas não conheço seu conteúdo">Já ouvi falar, mas não conheço seu conteúdo</ion-select-option>
+              <ion-select-option value="Não conheço">Não conheço</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Direitos Humanos no Ambiente Digital -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Direitos Humanos no Ambiente Digital</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Você acredita que os direitos humanos se aplicam da mesma forma no ambiente digital e no mundo físico?</ion-label>
+            <ion-select [(ngModel)]="formData.aplicacaoDireitos" name="aplicacaoDireitos" required>
+              <ion-select-option value="Sim, totalmente">Sim, totalmente</ion-select-option>
+              <ion-select-option value="Sim, mas com algumas diferenças">Sim, mas com algumas diferenças</ion-select-option>
+              <ion-select-option value="Não, são diferentes">Não, são diferentes</ion-select-option>
+              <ion-select-option value="Não tenho opinião formada">Não tenho opinião formada</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Quais direitos você considera mais ameaçados no ambiente digital? (selecione até 3)</ion-label>
+          </ion-item>
+          <ion-item *ngFor="let direito of direitosAmeacadosOptions">
+            <ion-checkbox
+              slot="start"
+              [checked]="isSelected(formData.direitosAmeacados, direito)"
+              (ionChange)="toggleSelection(formData.direitosAmeacados, direito)"
+              [disabled]="formData.direitosAmeacados.length >= 3 && !isSelected(formData.direitosAmeacados, direito)">
+            </ion-checkbox>
+            <ion-label>{{direito}}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Como você avaliaria seu nível de preocupação com a proteção dos seus dados pessoais na internet?</ion-label>
+            <ion-range
+              [(ngModel)]="formData.preocupacaoDados"
+              name="preocupacaoDados"
+              min="1"
+              max="5"
+              snaps
+              ticks
+              required>
+              <ion-label slot="start">1 (Nada preocupado)</ion-label>
+              <ion-label slot="end">5 (Extremamente preocupado)</ion-label>
+            </ion-range>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Você já teve alguma experiência negativa relacionada à violação de seus direitos no ambiente digital?</ion-label>
+            <ion-select [(ngModel)]="formData.experienciaNegativa" name="experienciaNegativa" required>
+              <ion-select-option value="Sim">Sim</ion-select-option>
+              <ion-select-option value="Não">Não</ion-select-option>
+              <ion-select-option value="Prefiro não responder">Prefiro não responder</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Responsabilidade e Regulação -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Responsabilidade e Regulação</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>Quem você acredita que deveria ter a principal responsabilidade pela proteção dos direitos humanos no ambiente digital? (escolha até 2)</ion-label>
+          </ion-item>
+          <ion-item *ngFor="let responsavel of responsabilidadeOptions">
+            <ion-checkbox
+              slot="start"
+              [checked]="isSelected(formData.responsabilidade, responsavel)"
+              (ionChange)="toggleSelection(formData.responsabilidade, responsavel)"
+              [disabled]="formData.responsabilidade.length >= 2 && !isSelected(formData.responsabilidade, responsavel)">
+            </ion-checkbox>
+            <ion-label>{{responsavel}}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Você acredita que as atuais regulamentações são suficientes para proteger os direitos humanos no ambiente digital?</ion-label>
+            <ion-select [(ngModel)]="formData.regulamentacaoAtual" name="regulamentacaoAtual" required>
+              <ion-select-option value="Sim, são adequadas">Sim, são adequadas</ion-select-option>
+              <ion-select-option value="Não, precisam ser aprimoradas">Não, precisam ser aprimoradas</ion-select-option>
+              <ion-select-option value="Não, são praticamente inexistentes">Não, são praticamente inexistentes</ion-select-option>
+              <ion-select-option value="Não tenho conhecimento suficiente para opinar">Não tenho conhecimento suficiente para opinar</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Inteligência Artificial e Futuro Digital -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Inteligência Artificial e Futuro Digital</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Qual o seu nível de preocupação com o impacto da inteligência artificial nos direitos humanos?</ion-label>
+            <ion-range
+              [(ngModel)]="formData.preocupacaoIA"
+              name="preocupacaoIA"
+              min="1"
+              max="5"
+              snaps
+              ticks
+              required>
+              <ion-label slot="start">1 (Nada preocupado)</ion-label>
+              <ion-label slot="end">5 (Extremamente preocupado)</ion-label>
+            </ion-range>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Quais aspectos da IA você considera mais preocupantes do ponto de vista dos direitos humanos? (selecione até 3)</ion-label>
+          </ion-item>
+          <ion-item *ngFor="let aspecto of aspectosIAOptions">
+            <ion-checkbox
+              slot="start"
+              [checked]="isSelected(formData.aspectosPreocupantesIA, aspecto)"
+              (ionChange)="toggleSelection(formData.aspectosPreocupantesIA, aspecto)"
+              [disabled]="formData.aspectosPreocupantesIA.length >= 3 && !isSelected(formData.aspectosPreocupantesIA, aspecto)">
+            </ion-checkbox>
+            <ion-label>{{aspecto}}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Você acha que as pessoas estão suficientemente educadas sobre seus direitos no ambiente digital?</ion-label>
+            <ion-select [(ngModel)]="formData.educacaoDireitosDigitais" name="educacaoDireitosDigitais" required>
+              <ion-select-option value="Sim">Sim</ion-select-option>
+              <ion-select-option value="Não">Não</ion-select-option>
+              <ion-select-option value="Parcialmente">Parcialmente</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button type="submit" expand="block" [disabled]="!formData.faixaEtaria || !formData.escolaridade || !formData.genero">
+      Enviar Questionário
+    </ion-button>
+  </form>
+</ion-content>

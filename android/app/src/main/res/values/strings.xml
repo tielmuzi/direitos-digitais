@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">direitos-digitais</string>
+    <string name="title_activity_main">direitos-digitais</string>
+    <string name="package_name">direitos.digitais</string>
+    <string name="custom_url_scheme">direitos.digitais</string>
+</resources>

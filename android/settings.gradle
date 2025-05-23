@@ -1,0 +1,15 @@
+include ':app'
+include ':capacitor-cordova-android-plugins'
+project(':capacitor-cordova-android-plugins').projectDir = new File('./capacitor-cordova-android-plugins/')
+buildscript {
+  repositories {
+    google()
+    mavenCentral()project(':capacitor-cordova-android-plugins').projectDir = new File('./capacitor-cordova-android-plugins/')
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:8.0.2'
+  }
+}
+import java.io.File
+
+apply from: 'capacitor.settings.gradle'

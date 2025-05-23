@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Relatar Violação</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registro Anônimo de Violações</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Este formulário permite relatar experiências negativas no ambiente digital de forma completamente anônima. Seus dados pessoais não serão coletados.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <form (ngSubmit)="enviarRelato()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Tipo de violação*</ion-label>
+        <ion-select [(ngModel)]="relato.tipo" name="tipo" required>
+          <ion-select-option *ngFor="let tipo of tiposViolacao" [value]="tipo">{{tipo}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descrição do ocorrido*</ion-label>
+        <ion-textarea
+          [(ngModel)]="relato.descricao"
+          name="descricao"
+          rows="5"
+          placeholder="Descreva o que aconteceu..."
+          required>
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Quando ocorreu?</ion-label>
+        <ion-input
+          [(ngModel)]="relato.quandoOcorreu"
+          name="quandoOcorreu"
+          type="text"
+          placeholder="Ex: Janeiro de 2023, 6 meses atrás...">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Quais ações você tomou?</ion-label>
+        <ion-textarea
+          [(ngModel)]="relato.acoesTomadas"
+          name="acoesTomadas"
+          rows="3"
+          placeholder="Ex: Denunciei na plataforma, procurei ajuda jurídica...">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Quais foram as consequências?</ion-label>
+        <ion-textarea
+          [(ngModel)]="relato.consequencias"
+          name="consequencias"
+          rows="3"
+          placeholder="Ex: Impacto emocional, perda financeira...">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-button type="submit" expand="block" [disabled]="!relato.tipo || !relato.descricao">
+      Enviar Relato Anônimo
+    </ion-button>
+  </form>
+</ion-content>

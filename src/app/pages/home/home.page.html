@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Direitos Digitais</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Projeto Acadêmico - Direitos Humanos e o Universo Digital.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Bem-vindo ao nosso aplicativo acadêmico dedicado à exploração dos direitos humanos no ambiente digital. Este projeto visa conscientizar sobre os desafios e ameaças aos direitos fundamentais no mundo virtual.</p>
+      <p>Com a crescente digitalização da sociedade, os direitos humanos enfrentam novos desafios que exigem nossa atenção e ação coletiva.</p>
+      <p>Navegue pelo menu para aprender sobre diferentes tipos de violações, participar de nossa pesquisa anônima ou relatar experiências para ajudar na construção de um ambiente digital mais seguro e justo para todos.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item-group *ngFor="let violacao of violacoes">
+      <ion-item-divider>
+        <ion-label>{{violacao.titulo}}</ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap">{{violacao.descricao}}</ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-button expand="block" (click)="abrirLink()">
+    Saiba mais
+  </ion-button>
+</ion-content>
